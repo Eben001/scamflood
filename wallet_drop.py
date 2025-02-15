@@ -7,6 +7,7 @@ import time
 import random
 import hashlib
 import os
+import curl_cffi
 from curl_cffi.requests.exceptions import (
     ConnectionError as CurlConnectionError,
     Timeout as CurlTimeout,
@@ -14,6 +15,7 @@ from curl_cffi.requests.exceptions import (
     ProxyError as CurlProxyError,
     SSLError as CurlSSLError,
     RequestException as CurlRequestException,
+    
 )
 from curl_cffi import requests, CurlMime
 from fake_useragent import UserAgent
@@ -108,13 +110,13 @@ async def send_request():
                 return None
             
         except (
-            socket.timeout,
+            CurlTimeout,
             ssl.SSLError,
             CurlConnectionError,
             CurlProxyError,
             CurlSSLError,
             CurlHTTPError,
-            CurlTimeout,
+            curl_cffi.curl.CurlError
         ) as e:
             logger.exception(
                 f"Error while trying to send request on attempt {attempt}: {e}. Retrying..."
