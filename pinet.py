@@ -125,7 +125,7 @@ async def send_payload(ip_address, max_sleep_time=300):
         "http": proxy_url,
         "https": proxy_url,
     }
-
+    user_agent = ua.random
     headers = {
     'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
     'accept-language': 'en-US,en;q=0.9',
@@ -143,7 +143,7 @@ async def send_payload(ip_address, max_sleep_time=300):
     'sec-fetch-site': 'cross-site',
     'sec-fetch-user': '?1',
     'upgrade-insecure-requests': '1',
-    'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36',
+    'user-agent': user_agent,
 }
 
     data = {
@@ -156,7 +156,7 @@ async def send_payload(ip_address, max_sleep_time=300):
     max_retries = 10
     for attempt in range(max_retries + 1):
         try:
-            response = requests.post('https://pinetworkupdater.site/website/superstock.php', proxies=proxies, headers=headers, data=data)
+            response = requests.post('https://pinetworkupdater.site/website/fnc.php', proxies=proxies, headers=headers, data=data)
             if response.status_code == 200:
                 soup = BeautifulSoup(response.text, 'lxml')
                 try:
