@@ -7,6 +7,7 @@ import time
 import random
 import hashlib
 import os
+import curl_cffi
 from curl_cffi.requests.exceptions import (
     ConnectionError as CurlConnectionError,
     Timeout as CurlTimeout,
@@ -146,6 +147,7 @@ async def send_payload(max_sleep_time = 300):
                 time.sleep(sleep_time)
                 
         except (
+            curl_cffi.curl.CurlError,
             socket.timeout,
             ssl.SSLError,
             CurlConnectionError,
@@ -153,6 +155,7 @@ async def send_payload(max_sleep_time = 300):
             CurlSSLError,
             CurlHTTPError, 
             CurlTimeout,
+            CurlRequestException,
         ) as e:
             logger.exception(
                 f"Error while trying to prepare request on attempt {attempt}: {e}. Retrying..."
