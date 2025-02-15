@@ -158,11 +158,11 @@ async def send_payload(max_sleep_time = 300):
             CurlRequestException,
         ) as e:
             logger.exception(
-                f"Error while trying to prepare request on attempt {attempt}: {e}. Retrying..."
+                f"Error while trying to send payload on attempt {attempt}: {e}. Retrying..."
             )
             if attempt == max_retries:
-                logger.error("Max retries exceeded. Download failed.")
-                raise
+                logger.error("Max retries exceeded.  Request failed.")
+                pass 
 
 
 
